@@ -30,7 +30,7 @@ To successfully use this sample, you need a working installation of [Java](http:
 
 From your shell or command line:
 
-- `git clone https://github.com/yammer/code_samples/adal4j-yammer-webapp.git`
+- `https://github.com/yammer/code_samples.git`
 
 ### Step 3:  Register the sample with your Azure Active Directory tenant
 
