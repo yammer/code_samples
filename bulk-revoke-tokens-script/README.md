@@ -16,7 +16,7 @@ This API will delete all the yammer bearer tokens for the users which provided i
 
 A curl command example to call this API:
 ```
-curl -v -d '{"user_ids":[1,2,3]}' -H "Content-Type: application/json" -H "Authorization: Bearer <AAD_Token>" -X POST https://www.yammer.com/api/v1/tokens/deletion
+curl -v -d '{"user_ids":[1,2,3], "is_3rd_party_only": false}' -H "Content-Type: application/json" -H "Authorization: Bearer <AAD_Token>" -X POST https://www.yammer.com/api/v1/tokens/deletion
 ```
 
 ## Work Flow
