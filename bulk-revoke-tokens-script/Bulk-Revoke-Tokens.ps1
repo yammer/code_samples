@@ -1,6 +1,7 @@
 param (
   [Parameter(Mandatory=$true)][string]$CsvPath,
-  [Parameter(Mandatory=$true)][string]$BearerToken
+  [Parameter(Mandatory=$true)][string]$BearerToken,
+  [Parameter(Mandatory=$true)][string]$Is3rdPartyAppOnly
 )
 
 function RequestDeletion {
@@ -24,6 +25,13 @@ $UserIdColName = "user_id"
 
 $CsvObj = Import-Csv -Path $CsvPath
 
+$ThirdPartyAppOnly = false
+if($Is3rdPartyAppOnly -eq $true){
+  $ThirdPartyAppOnly = true
+}
+
+$JsonFormat = '{{"user_ids": [{0}], "is_3rd_party_only": $($ThirdPartyAppOnly)}}'
+
 if ($CsvObj | Get-Member -Name $UserIdColName -MemberType NoteProperty)
 {
   $UserIds = $CsvObj.$UserIdColName
@@ -38,7 +46,7 @@ if ($CsvObj | Get-Member -Name $UserIdColName -MemberType NoteProperty)
 
       if ($Batch.Count -ge $BatchSize)
       {
-        $Json = ('{{"user_ids": [{0}]}}' -f ($Batch -join ","))
+        $Json = (JsonFormat -f ($Batch -join ","))
         RequestDeletion -Json $Json -BearerToken $BearerToken -Api $Api
         $Batch.Clear()
       }
@@ -46,14 +54,14 @@ if ($CsvObj | Get-Member -Name $UserIdColName -MemberType NoteProperty)
 
     if ($Batch.Count -gt 0)
     {
-      $Json = ('{{"user_ids": [{0}]}}' -f ($Batch -join ","))
+      $Json = (JsonFormat -f ($Batch -join ","))
       RequestDeletion -Json $Json -BearerToken $BearerToken -Api $Api
       $Batch.Clear()
     }
   }
 }
-else {
+else 
+{
   Write-Error ("Cannot find column {0} in file {1}" -f $UserIdColName, $CsvPath)
   exit 2
 }
-
