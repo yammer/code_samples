@@ -20,6 +20,6 @@ A curl command example to call this API:
 curl -v -d '{"user_ids":[1,2,3], "is_3rd_party_only": true}' -H "Content-Type: application/json" -H "Authorization: Bearer <AAD_Token>" -X POST https://www.yammer.com/api/v1/tokens/deletion
 ```
 
-## Work Flow
+## Workflow
 1. Get all the user ids from the csv file
 2. Invoke the post API to revoke tokens for at most 100 users each time
