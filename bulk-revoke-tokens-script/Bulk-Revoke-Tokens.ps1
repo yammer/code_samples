@@ -25,13 +25,6 @@ $UserIdColName = "user_id"
 
 $CsvObj = Import-Csv -Path $CsvPath
 
-$ThirdPartyAppOnly = false
-if($Is3rdPartyAppOnly -eq $true){
-  $ThirdPartyAppOnly = true
-}
-
-$JsonFormat = '{{"user_ids": [{0}], "is_3rd_party_only": $($ThirdPartyAppOnly)}}'
-
 if ($CsvObj | Get-Member -Name $UserIdColName -MemberType NoteProperty)
 {
   $UserIds = $CsvObj.$UserIdColName
@@ -46,7 +39,7 @@ if ($CsvObj | Get-Member -Name $UserIdColName -MemberType NoteProperty)
 
       if ($Batch.Count -ge $BatchSize)
       {
-        $Json = (JsonFormat -f ($Batch -join ","))
+        $Json = ('{{"user_ids": [{0}], "is_3rd_party_only": {1}}}' -f ($Batch -join ","), $Is3rdPartyAppOnly)
         RequestDeletion -Json $Json -BearerToken $BearerToken -Api $Api
         $Batch.Clear()
       }
@@ -54,7 +47,7 @@ if ($CsvObj | Get-Member -Name $UserIdColName -MemberType NoteProperty)
 
     if ($Batch.Count -gt 0)
     {
-      $Json = (JsonFormat -f ($Batch -join ","))
+      $Json = ('{{"user_ids": [{0}], "is_3rd_party_only": {1}}}' -f ($Batch -join ","), $Is3rdPartyAppOnly)
       RequestDeletion -Json $Json -BearerToken $BearerToken -Api $Api
       $Batch.Clear()
     }
