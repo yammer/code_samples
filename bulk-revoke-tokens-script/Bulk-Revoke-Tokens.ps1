@@ -21,7 +21,7 @@ function RequestDeletion {
 }
 
 $BatchSize = 100
-$UserIdColName = "user_id"
+$UserIdColName = "id"
 
 $CsvObj = Import-Csv -Path $CsvPath
 
