@@ -14,7 +14,7 @@ function RequestDeletion {
   try
   {
     $Response = Invoke-RestMethod -Uri $Api -Method POST -ContentType "application/json" -Body $Json -Headers $Headers
-    @{StatusCode=$Response.BaseRequest.StatusCode; Content=$Response.Content} | Format-Table -AutoSize
+    @{StatusCode=200; Content="All Yammer OAuth tokens provided have been destroyed"} | Format-Table -AutoSize
   } catch {
     @{StatusCode=[int]$_.Exception.Response.StatusCode; Content=$_.ErrorDetails.Message} | Format-Table -AutoSize
   }
@@ -55,6 +55,6 @@ if ($CsvObj | Get-Member -Name $UserIdColName -MemberType NoteProperty)
 }
 else 
 {
-  Write-Error ("Cannot find column {0} in file {1}" -f $UserIdColName, $CsvPath)
+  Write-Error ("CSV file is improperly formatted. Please check and try again" -f $UserIdColName, $CsvPath)
   exit 2
 }
