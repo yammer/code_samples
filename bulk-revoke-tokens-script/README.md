@@ -1,5 +1,5 @@
 # Yammer OAuth Token Destroy PowerShell Script
-This PowerShell [script](https://github.com/yammer/code_samples/blob/meihu_dev/bulk-revoke-tokens-script/Bulk-Revoke-Tokens.ps1) will destroy Yammer OAuth tokens. Recommended to use when there are more than 150 users whose Yammer OAuth tokens need to be destroyed. For operations with less than 150 users, please use the Yammer OAuth token Destory API https://aka.ms/Destroy
+This [PowerShell script](https://github.com/yammer/code_samples/blob/meihu_dev/bulk-revoke-tokens-script/Bulk-Revoke-Tokens.ps1) will destroy Yammer OAuth tokens. Recommended to use when there are more than 150 users whose Yammer OAuth tokens need to be destroyed. For operations with less than 150 users, please use the Yammer OAuth token Destory API https://aka.ms/Destroy
 
 ## Usage
 ```
