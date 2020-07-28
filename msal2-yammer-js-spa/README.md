@@ -1,4 +1,4 @@
-# MSAL2 AAD AAD SPA
+# MSAL2 AAD SPA
 App that acquires tokens for different scopes on Graph and Yammer using MSAL2, and then uses those tokens to call corresponding APIs.
 
 ## Usage
